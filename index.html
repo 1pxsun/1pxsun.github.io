@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>1pxsun</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+		<style>
+			body { font-family: "Roboto Slab"; max-width: 30rem; margin: 4rem auto; font-size: 18px; }
+			a { color: #c04; text-decoration: none; display: block; padding: .1rem .5rem; }
+			a:hover { background: #c04; color: white; }
+			ul { list-style: none; padding: 0; }
+		</style>
+	</head>
+	<body>
+		<h1>My Gists</h1>
+		<ul id="list"><ul>
+
+		<script>
+			var request = new XMLHttpRequest();
+			var user = document.location.search.replace("?", "");
+			user = user || "1pxsun";
+			request.open("GET", "https://api.github.com/users/"+user+"/gists", true);
+			request.onload = function() {
+				if (request.status >= 200 && request.status < 400) {
+					// Success!
+					var data = JSON.parse(request.responseText);
+					data.forEach(function(gist) {
+						var li = document.createElement("li");
+						var a = document.createElement("a");
+						a.href = gist.html_url;
+						a.title = gist.description;
+						Object.keys(gist.files).forEach(function(file) {
+							if (!a.textContent && !file.match(/\.(md|txt)/i)) {
+								a.textContent = file;
+							}
+						});
+						li.appendChild(a);
+						document.getElementById("list").appendChild(li);
+					})
+				}
+			};
+			request.send();	
+		</script>
+	</body>
+</html>
