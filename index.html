@@ -31,7 +31,7 @@
 						a.href = gist.html_url;
 						a.title = gist.description;
 						Object.keys(gist.files).forEach(function(file) {
-							if (!a.textContent && !file.match(/\.(md|txt)/i)) {
+							if (!a.textContent && !file.match(/\.(md|txt|json)$/i)) {
 								a.textContent = file;
 							}
 						});
