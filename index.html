@@ -13,7 +13,7 @@
 		</style>
 	</head>
 	<body>
-		<h1>My Gists</h1>
+		<h1 id="title"></h1>
 		<ul id="list"><ul>
 
 		<script>
@@ -25,6 +25,7 @@
 				if (request.status >= 200 && request.status < 400) {
 					// Success!
 					var data = JSON.parse(request.responseText);
+					document.getElementById("title").textContent = user;
 					data.forEach(function(gist) {
 						var li = document.createElement("li");
 						var a = document.createElement("a");
